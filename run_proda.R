@@ -1,15 +1,22 @@
+#!/usr/bin/env Rscript
+
+
 #--------------------------------
 # ProDA
 #--------------------------------
 
 
-library(tidyverse)
+library(dplyr)
 
-if(!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-BiocManager::install("proDA")
+# if(!requireNamespace("BiocManager", quietly = TRUE))
+#   install.packages("BiocManager")
+# BiocManager::install("proDA")
 library(proDA)
-library(optparser)
+library(optparse)
+
+# suppressPackageStartupMessages({
+#   library(optparse)
+# })
 
 # -------------------------
 # Functions
@@ -47,10 +54,12 @@ parser <- OptionParser(option_list = option_list)
 args <- parse_args(parser)
 
 # data <- load_dataset('/Users/bkg618/Desktop/out/data/s1/default/s1.synthetic_dataset.csv')
-data <- load_dataset(read.csv(args$data.matrix, check.names = FALSE, stringsAsFactors = FALSE))
+data_path <- args$data.matrix
+data <- load_dataset(data_path)
 
 # labels <- load_labels('/Users/bkg618/Desktop/out/data/s1/default/s1.true_labels.csv')
-labels <- load_labels(read.csv(args$data.true_labels, header= FALSE))
+labels_path = args$data.true_labels
+labels <- load_labels(labels_path)
 
 # Fit data
 fit <- proDA(data, design = labels)
