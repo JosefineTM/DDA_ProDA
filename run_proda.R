@@ -23,7 +23,7 @@ library(optparse)
 # -------------------------
 
 load_dataset <- function(data_file) {
-  data <- read.csv(data_file, row.names = 1, check.names = FALSE)
+  data <- read.csv(data_file, check.names = FALSE, stringsAsFactors = FALSE) #row.names = 1
   data <- as.matrix(data)
   
   return(data)
@@ -31,7 +31,7 @@ load_dataset <- function(data_file) {
 
 
 load_labels <- function(labels_file) {
-  labels <- read.csv(labels_file, row.names = 1, header = FALSE) 
+  labels <- read.csv(labels_file, header = FALSE)  # row.names = 1
   colnames(labels) <- "condition"
   labels <- labels %>%pull(condition)
   return(labels)
