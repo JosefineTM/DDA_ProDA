@@ -33,8 +33,10 @@ load_dataset <- function(data_file) {
 
 load_labels <- function(labels_file) {
   labels <- read.csv(labels_file, header = FALSE)  # row.names = 1
-  colnames(labels) <- "condition"
-  labels <- labels %>%pull(condition)
+  labels_vec <- unlist(labels[,2])
+  #colnames(labels) <- "condition"
+  labels <- factor(labels_vec)
+  #labels <- labels %>%pull(condition)
   return(labels)
 }
 
