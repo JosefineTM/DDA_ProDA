@@ -69,11 +69,12 @@ fit <- proDA(data, design = labels)
 
 # Run diff test
 test <- test_diff(fit, `0` - `1`)
-test <- as.data.frame(test) %>%
-  select(c(name, pval, diff)) %>%
-  select(c(pval, diff)) %>%
+test <- as.data.frame(test) %>% rename(P.Value = pval, effect_size = diff)
+
+  #select(c(name, pval, diff)) %>%
+  #select(c(pval, diff)) %>%
   #rename(P.Value = pval, effect_size = diff)
-  rename(P.Value = pval, ID = name, effect_size = diff)
+  #rename(P.Value = pval, ID = name, effect_size = diff)
 
 test$ID <- rownames(test)
 # Strip numeric suffixes added by make.unique
