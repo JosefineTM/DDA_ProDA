@@ -26,7 +26,7 @@ load_dataset <- function(data_file) {
   data <- read.csv(data_file, check.names = FALSE, stringsAsFactors = FALSE) #row.names = 1
   rownames(data) <- make.unique(data[[1]]) # TODO: should not be done here- duplicates should be remove when the cancer data is created
   data[[1]] <- NULL
-  data <- as.matrix(data)
+  #data <- as.matrix(data)
   return(data)
 }
 
@@ -70,8 +70,10 @@ fit <- proDA(data, design = labels)
 # Run diff test
 test <- test_diff(fit, `0` - `1`)
 test <- as.data.frame(test) %>%
-  select(c(name, pval, diff)) %>%
-  rename(P.Value = pval, Protein = name, effect_size = diff)
+  #select(c(name, pval, diff)) %>%
+  select(c(pval, diff)) %>%
+  rename(P.Value = pval, effect_size = diff)
+  #rename(P.Value = pval, Protein = name, effect_size = diff)
 
 test$ID <- rownames(test)
 # Strip numeric suffixes added by make.unique
