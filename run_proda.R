@@ -71,7 +71,7 @@ fit <- proDA(data, design = labels)
 test <- test_diff(fit, `0` - `1`)
 test <- as.data.frame(test) %>% 
         select(c(name, pval, diff)) %>%
-        rename(P.Value = pval, effect_size = diff)
+        rename(ID= name, P.Value = pval, effect_size = diff)
 
   #select(c(name, pval, diff)) %>%
   #select(c(pval, diff)) %>%
