@@ -26,7 +26,7 @@ load_dataset <- function(data_file) {
   data <- read.csv(data_file, check.names = FALSE, stringsAsFactors = FALSE) #row.names = 1
   rownames(data) <- make.unique(data[[1]]) # TODO: should not be done here- duplicates should be remove when the cancer data is created
   data[[1]] <- NULL
-  #data <- as.matrix(data)
+  data <- as.matrix(data)
   return(data)
 }
 
