@@ -73,9 +73,9 @@ test <- as.data.frame(test) %>%
   select(c(name, pval, diff)) %>%
   rename(P.Value = pval, Protein = name, effect_size = diff)
 
-test$ID <- rownames(limma_results)
+test$ID <- rownames(test)
 # Strip numeric suffixes added by make.unique
-test$ID <- sub("\\.\\d+$", "", rownames(limma_results_output))
+test$ID <- sub("\\.\\d+$", "", rownames(test))
 # remove row names
 rownames(test) <- NULL
 test <- test[, c("ID", setdiff(names(test), "ID"))]
