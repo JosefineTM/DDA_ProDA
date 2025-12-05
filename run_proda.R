@@ -24,7 +24,7 @@ library(optparse)
 
 load_dataset <- function(data_file) {
   data <- read.csv(data_file, check.names = FALSE, stringsAsFactors = FALSE) #row.names = 1
-  rownames(data) <- make.unique(data[[1]]) # TODO: should not be done here- duplicates should be remove when the cancer data is created
+  rownames(data) <- make.unique(data[[1]])
   data[[1]] <- NULL
   data <- as.matrix(data)
   return(data)
@@ -34,9 +34,7 @@ load_dataset <- function(data_file) {
 load_labels <- function(labels_file) {
   labels <- read.csv(labels_file, header = FALSE)  # row.names = 1
   labels_vec <- unlist(labels[,2])
-  #colnames(labels) <- "condition"
   labels <- factor(labels_vec)
-  #labels <- labels %>%pull(condition)
   return(labels)
 }
 
@@ -73,17 +71,10 @@ test <- as.data.frame(test) %>%
         select(c(name, pval, diff)) %>%
         rename(ID= name, P.Value = pval, effect_size = diff)
 
-  #select(c(name, pval, diff)) %>%
-  #select(c(pval, diff)) %>%
-  #rename(P.Value = pval, effect_size = diff)
-  #rename(P.Value = pval, ID = name, effect_size = diff)
 test$ID <- sub("\\.\\d+$", "", test$ID)
-#test$ID <- rownames(test)
 # Strip numeric suffixes added by make.unique
-#test$ID <- sub("\\.\\d+$", "", rownames(test))
 # remove row names
 rownames(test) <- NULL
-#test <- test[, c("ID", setdiff(names(test), "ID"))]
 # Save
 output_filename <- paste0(args[["name"]], "_results.csv")
 write.csv(test, file=file.path(args[["output_dir"]], output_filename), row.names = FALSE)
